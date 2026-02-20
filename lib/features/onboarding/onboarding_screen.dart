@@ -23,10 +23,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     await Future.delayed(Duration(milliseconds: 500));
     setState(() => _showHello = true);
     await Future.delayed(Duration(seconds: 2));
-    setState(() { _showHello = false; _showTitle = true; });
+    setState(() {
+      _showHello = false;
+      _showTitle = true;
+    });
     await Future.delayed(Duration(milliseconds: 800));
     setState(() => _showDescription = true);
-    
+
     // Автоматический переход на ConsentScreen после появления описания
     await Future.delayed(Duration(milliseconds: 1500));
     if (mounted) {
@@ -42,9 +45,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: SafeArea(
         child: Center(
           child: Column(
-          
             children: [
-              Spacer(flex: 5,),
+              Spacer(flex: 6),
               SizedBox(
                 height: 70.h,
                 child: Stack(
@@ -53,12 +55,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     AnimatedOpacity(
                       opacity: _showHello ? 1.0 : 0.0,
                       duration: Duration(milliseconds: 500),
-                      child: Text('Привет', style: TextStyle(fontSize: 36.sp, fontWeight: FontWeight.bold)),
+                      child: Text(
+                        'Привет',
+                        style: TextStyle(
+                          fontSize: 36.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                     AnimatedOpacity(
                       opacity: _showTitle ? 1.0 : 0.0,
                       duration: Duration(milliseconds: 500),
-                      child: Text('Я Poot', style: TextStyle(fontSize: 36.sp, fontWeight: FontWeight.bold)),
+                      child: Text(
+                        'Я Poot',
+                        style: TextStyle(
+                          fontSize: 36.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -69,10 +83,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 child: Text(
                   'Твой личный трекер походов в туалет',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18.sp, color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 700)),
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withValues(alpha: 500),
+                  ),
                 ),
               ),
-              Spacer(flex: 6,),
+              Spacer(flex: 7),
             ],
           ),
         ),
