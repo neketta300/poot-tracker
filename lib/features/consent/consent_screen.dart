@@ -2,6 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+class BoldCheckmarkPainter extends CustomPainter {
+  final Color color;
+  final double strokeWidth;
+
+  BoldCheckmarkPainter({required this.color, this.strokeWidth = 2.0});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = strokeWidth
+      ..strokeCap = StrokeCap
+          .round // скруглённые концы
+      ..strokeJoin = StrokeJoin.round; // скруглённые углы
+
+    final path = Path();
+    // Начальная точка (левый нижний угол галочки)
+    path.moveTo(size.width * 0.15, size.height * 0.5);
+    // Средняя точка (пик галочки)
+    path.lineTo(size.width * 0.45, size.height * 0.8);
+    // Конечная точка (правый верхний угол)
+    path.lineTo(size.width * 0.9, size.height * 0.25);
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant BoldCheckmarkPainter old) =>
+      old.color != color || old.strokeWidth != strokeWidth;
+}
+
 // Вспомогательный класс для хранения диапазонов выделения
 class _HighlightRange {
   final int start;
@@ -243,15 +275,15 @@ class RadioConsentButton extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: 14.w,
-              height: 14.w,
+              width: 15.w,
+              height: 15.w,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
                   color: isSelected
                       ? Theme.of(context).colorScheme.primary
                       : Colors.grey.shade400,
-                  width: 1.w,
+                  width: 2.w,
                 ),
                 color: isSelected
                     ? Theme.of(context).colorScheme.primary
@@ -259,10 +291,15 @@ class RadioConsentButton extends StatelessWidget {
               ),
               child: isSelected
                   ? Container(
-                      margin: EdgeInsets.all(1.w),
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
+                      decoration: BoxDecoration(shape: BoxShape.circle),
+                      child: Center(
+                        child: CustomPaint(
+                          size: Size(9.w, 9.w),
+                          painter: BoldCheckmarkPainter(
+                            color: Colors.white,
+                            strokeWidth: 1.5.w, // 👈 регулируйте толщину здесь
+                          ),
+                        ),
                       ),
                     )
                   : null,
