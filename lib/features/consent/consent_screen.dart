@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-class BoldCheckmarkPainter extends CustomPainter {
+class CheckmarkPainter extends CustomPainter {
   final Color color;
   final double strokeWidth;
 
-  BoldCheckmarkPainter({required this.color, this.strokeWidth = 2.0});
+  CheckmarkPainter({required this.color, this.strokeWidth = 2.0});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -30,7 +30,7 @@ class BoldCheckmarkPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant BoldCheckmarkPainter old) =>
+  bool shouldRepaint(covariant CheckmarkPainter old) =>
       old.color != color || old.strokeWidth != strokeWidth;
 }
 
@@ -295,7 +295,7 @@ class RadioConsentButton extends StatelessWidget {
                       child: Center(
                         child: CustomPaint(
                           size: Size(9.w, 9.w),
-                          painter: BoldCheckmarkPainter(
+                          painter: CheckmarkPainter(
                             color: Colors.white,
                             strokeWidth: 1.5.w, // 👈 регулируйте толщину здесь
                           ),
