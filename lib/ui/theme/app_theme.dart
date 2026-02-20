@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+const primaryColor = Color.fromRGBO(146, 112, 188, 100);
+
 class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
+      scaffoldBackgroundColor: Colors.white,
       useMaterial3: true,
       fontFamily: 'Nunito',
       colorScheme: ColorScheme.fromSeed(
-        seedColor: Colors.teal,
+        // seedColor: Colors.teal,
+        seedColor: primaryColor,
         brightness: Brightness.light,
       ),
       textTheme: TextTheme(
@@ -22,11 +26,13 @@ class AppTheme {
 
   static ThemeData get darkTheme {
     return ThemeData(
+      scaffoldBackgroundColor: Colors.white,
       useMaterial3: true,
       fontFamily: 'Nunito',
       colorScheme: ColorScheme.fromSeed(
-        seedColor: Colors.teal,
         brightness: Brightness.dark,
+        seedColor: primaryColor,
+        // seedColor: Colors.teal,
       ),
       textTheme: TextTheme(
         headlineLarge: TextStyle(fontSize: 36.sp, fontWeight: FontWeight.bold),
