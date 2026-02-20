@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import '../../router/router.dart';
 import '../consent/consent_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -33,9 +35,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     // Автоматический переход на ConsentScreen после появления описания
     await Future.delayed(Duration(milliseconds: 1500));
     if (mounted) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const ConsentScreen()),
-      );
+      context.go(AppRoutes.consent);
     }
   }
 
