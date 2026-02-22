@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:poot_tracker/router/app_router.dart';
 import 'package:poot_tracker/ui/theme/app_theme.dart';
-import 'package:poot_tracker/features/onboarding/onboarding_screen.dart';
+import 'package:poot_tracker/features/onboarding/view/onboarding_screen.dart';
 
 class PootApp extends StatelessWidget {
   const PootApp({super.key});

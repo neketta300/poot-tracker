@@ -6,6 +6,7 @@
         "app",
         "onboarding",
         "consent",
-        "routing"
+        "routing",
+        "auth"
     ]
 }

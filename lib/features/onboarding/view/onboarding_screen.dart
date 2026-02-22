@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import '../../router/router.dart';
+import '../../../router/router.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -80,7 +80,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 opacity: _showDescription ? 1.0 : 0.0,
                 duration: Duration(milliseconds: 800),
                 child: Text(
-                  'Твой личный трекер походов в туалет',
+                  'Твой личный трекер здоовья желудка',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16.sp,

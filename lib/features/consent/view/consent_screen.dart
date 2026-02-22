@@ -1,103 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-
-class CheckmarkPainter extends CustomPainter {
-  final Color color;
-  final double strokeWidth;
-
-  CheckmarkPainter({required this.color, this.strokeWidth = 2.0});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = color
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = strokeWidth
-      ..strokeCap = StrokeCap
-          .round // скруглённые концы
-      ..strokeJoin = StrokeJoin.round; // скруглённые углы
-
-    final path = Path();
-    // Начальная точка (левый нижний угол галочки)
-    path.moveTo(size.width * 0.15, size.height * 0.5);
-    // Средняя точка (пик галочки)
-    path.lineTo(size.width * 0.45, size.height * 0.8);
-    // Конечная точка (правый верхний угол)
-    path.lineTo(size.width * 0.9, size.height * 0.25);
-
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CheckmarkPainter old) =>
-      old.color != color || old.strokeWidth != strokeWidth;
-}
-
-// Вспомогательный класс для хранения диапазонов выделения
-class _HighlightRange {
-  final int start;
-  final int end;
-
-  _HighlightRange({required this.start, required this.end});
-}
-
-// Функция для создания TextSpan с несколькими выделениями
-TextSpan buildMultipleHighlightedText({
-  required String fullText,
-  required List<String> highlightTexts,
-  required Color highlightColor,
-  required TextStyle baseStyle,
-}) {
-  List<TextSpan> children = [];
-
-  // Создаем карту всех выделений с их позициями
-  List<_HighlightRange> ranges = [];
-
-  for (String highlightText in highlightTexts) {
-    final index = fullText.toLowerCase().indexOf(highlightText.toLowerCase());
-
-    if (index != -1) {
-      ranges.add(
-        _HighlightRange(start: index, end: index + highlightText.length),
-      );
-    }
-  }
-
-  // Сортируем по позиции начала
-  ranges.sort((a, b) => a.start.compareTo(b.start));
-
-  int lastEnd = 0;
-
-  for (var range in ranges) {
-    // Добавляем обычный текст до выделения
-    if (range.start > lastEnd) {
-      children.add(
-        TextSpan(
-          text: fullText.substring(lastEnd, range.start),
-          style: baseStyle,
-        ),
-      );
-    }
-
-    // Добавляем выделенный текст
-    children.add(
-      TextSpan(
-        text: fullText.substring(range.start, range.end),
-        style: baseStyle.copyWith(color: highlightColor),
-      ),
-    );
-
-    lastEnd = range.end;
-  }
-
-  // Добавляем оставшийся текст
-  if (lastEnd < fullText.length) {
-    children.add(TextSpan(text: fullText.substring(lastEnd), style: baseStyle));
-  }
-
-  return TextSpan(children: children);
-}
+import 'package:go_router/go_router.dart';
+import 'package:poot_tracker/router/routes.dart';
 
 class ConsentScreen extends StatefulWidget {
   const ConsentScreen({super.key});
@@ -182,7 +87,10 @@ class _ConsentScreenState extends State<ConsentScreen> {
             ),
             SecondaryButton(text: 'Принять всё'),
             SizedBox(height: 5.h),
-            PrimaryButton(text: 'Далее'),
+            PrimaryButton(
+              text: 'Далее',
+              onTap: () => context.go(AppRoutes.auth),
+            ),
             SizedBox(height: 16.h),
           ],
         ),
@@ -192,12 +100,14 @@ class _ConsentScreenState extends State<ConsentScreen> {
 }
 
 class PrimaryButton extends StatelessWidget {
+  final void Function()? onTap;
   final String text;
-  const PrimaryButton({super.key, required this.text});
+  const PrimaryButton({super.key, required this.text, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: onTap,
       child: Container(
         width: 170.w,
         padding: EdgeInsets.symmetric(vertical: 10.h),
@@ -322,4 +232,101 @@ class RadioConsentButton extends StatelessWidget {
       ),
     );
   }
+}
+
+class CheckmarkPainter extends CustomPainter {
+  final Color color;
+  final double strokeWidth;
+
+  CheckmarkPainter({required this.color, this.strokeWidth = 2.0});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = strokeWidth
+      ..strokeCap = StrokeCap
+          .round // скруглённые концы
+      ..strokeJoin = StrokeJoin.round; // скруглённые углы
+
+    final path = Path();
+    // Начальная точка (левый нижний угол галочки)
+    path.moveTo(size.width * 0.15, size.height * 0.5);
+    // Средняя точка (пик галочки)
+    path.lineTo(size.width * 0.45, size.height * 0.8);
+    // Конечная точка (правый верхний угол)
+    path.lineTo(size.width * 0.9, size.height * 0.25);
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CheckmarkPainter old) =>
+      old.color != color || old.strokeWidth != strokeWidth;
+}
+
+// Вспомогательный класс для хранения диапазонов выделения
+class _HighlightRange {
+  final int start;
+  final int end;
+
+  _HighlightRange({required this.start, required this.end});
+}
+
+// Функция для создания TextSpan с несколькими выделениями
+TextSpan buildMultipleHighlightedText({
+  required String fullText,
+  required List<String> highlightTexts,
+  required Color highlightColor,
+  required TextStyle baseStyle,
+}) {
+  List<TextSpan> children = [];
+
+  // Создаем карту всех выделений с их позициями
+  List<_HighlightRange> ranges = [];
+
+  for (String highlightText in highlightTexts) {
+    final index = fullText.toLowerCase().indexOf(highlightText.toLowerCase());
+
+    if (index != -1) {
+      ranges.add(
+        _HighlightRange(start: index, end: index + highlightText.length),
+      );
+    }
+  }
+
+  // Сортируем по позиции начала
+  ranges.sort((a, b) => a.start.compareTo(b.start));
+
+  int lastEnd = 0;
+
+  for (var range in ranges) {
+    // Добавляем обычный текст до выделения
+    if (range.start > lastEnd) {
+      children.add(
+        TextSpan(
+          text: fullText.substring(lastEnd, range.start),
+          style: baseStyle,
+        ),
+      );
+    }
+
+    // Добавляем выделенный текст
+    children.add(
+      TextSpan(
+        text: fullText.substring(range.start, range.end),
+        style: baseStyle.copyWith(color: highlightColor),
+      ),
+    );
+
+    lastEnd = range.end;
+  }
+
+  // Добавляем оставшийся текст
+  if (lastEnd < fullText.length) {
+    children.add(TextSpan(text: fullText.substring(lastEnd), style: baseStyle));
+  }
+
+  return TextSpan(children: children);
 }
