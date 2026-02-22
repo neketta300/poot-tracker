@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
-import 'package:poot_tracker/features/consent/consent_screen.dart';
-import 'package:poot_tracker/features/onboarding/onboarding_screen.dart';
+import 'package:poot_tracker/features/auth/view/auth_screen.dart';
+import 'package:poot_tracker/features/consent/view/consent_screen.dart';
+import 'package:poot_tracker/features/onboarding/view/onboarding_screen.dart';
 import 'package:poot_tracker/router/router.dart';
 
 class AppRouter {
@@ -14,6 +15,10 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.consent,
         builder: (context, state) => const ConsentScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.auth,
+        builder: (context, state) => const AuthScreen(),
       ),
     ],
   );
