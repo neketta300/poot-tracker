@@ -1,1 +1,1 @@
-export 'consent_screen.dart';
+export 'view/view.dart';
