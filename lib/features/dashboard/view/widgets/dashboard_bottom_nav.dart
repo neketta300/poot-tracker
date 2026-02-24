@@ -21,20 +21,20 @@ class DashboardBottomNav extends StatelessWidget {
       notchMargin: 8,
       color: colorScheme.surface,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           BotNavItem(
             text: 'Календарь',
             icon: Icons.calendar_today_rounded,
             isSelected: currentIndex == 0,
-            onTap: () => onTap(1),
+            onTap: () => onTap(0),
           ),
           SizedBox(width: 40.w),
           BotNavItem(
             text: 'Статистика',
             icon: Icons.bar_chart_rounded,
             isSelected: currentIndex == 1,
-            onTap: () => onTap(0),
+            onTap: () => onTap(1),
           ),
         ],
       ),
