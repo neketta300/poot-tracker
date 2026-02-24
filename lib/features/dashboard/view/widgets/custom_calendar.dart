@@ -4,6 +4,7 @@ import 'calendar_header.dart';
 import 'year_grid_view.dart';
 import 'month_grid_view.dart';
 import 'calendar_grid.dart';
+import 'entry_bottom_sheet.dart';
 
 class CustomCalendar extends StatefulWidget {
   const CustomCalendar({super.key});
@@ -70,6 +71,43 @@ class _CustomCalendarState extends State<CustomCalendar> {
     });
   }
 
+  void _showEntryBottomSheet(DateTime day) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        int tempCount = _toiletEntries[day] ?? 0;
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            return EntryBottomSheet(
+              selectedDay: day,
+              currentCount: tempCount,
+              onIncrement: () {
+                setModalState(() => tempCount++);
+              },
+              onDecrement: () {
+                setModalState(() {
+                  if (tempCount > 0) tempCount--;
+                });
+              },
+              onSave: () {
+                setState(() {
+                  if (tempCount > 0) {
+                    _toiletEntries[day] = tempCount;
+                  } else {
+                    _toiletEntries.remove(day);
+                  }
+                });
+                Navigator.pop(context);
+              },
+            );
+          },
+        );
+      },
+    );
+  }
+
   Widget _buildCalendarContent() {
     switch (_viewLevel) {
       case CalendarViewType.year:
@@ -99,7 +137,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
           focusedMonth: _focusedMonth,
           selectedDay: _selectedDay,
           toiletEntries: _toiletEntries,
-          onDaySelected: (day) => setState(() => _selectedDay = day),
+          onDaySelected: _showEntryBottomSheet,
         );
     }
   }
