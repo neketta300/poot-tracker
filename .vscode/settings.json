@@ -7,6 +7,7 @@
         "onboarding",
         "consent",
         "routing",
-        "auth"
+        "auth",
+        "dashboard"
     ]
 }
