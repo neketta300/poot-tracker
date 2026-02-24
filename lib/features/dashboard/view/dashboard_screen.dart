@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:poot_tracker/features/dashboard/view/widgets/custom_calendar.dart';
 import 'package:poot_tracker/features/dashboard/view/widgets/dashboard_bottom_nav.dart';
+import 'package:poot_tracker/features/dashboard/view/statistics/statistics_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -33,7 +34,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         index: _currentIndex,
         children: const [
           CustomCalendar(),
-          // StatisticsView(),
+          StatisticsScreen(),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
