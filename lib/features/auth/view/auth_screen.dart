@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:poot_tracker/router/routes.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
@@ -57,7 +59,9 @@ class AuthScreen extends StatelessWidget {
               SizedBox(height: 10.h),
               AuthButton(
                 text: 'Пропустить',
-                onTap: () {},
+                onTap: () {
+                  context.go(AppRoutes.dashboard);
+                },
                 buttonColor: Colors.transparent,
                 textColor: Color(0xff666666),
                 iconColor: Colors.black,
